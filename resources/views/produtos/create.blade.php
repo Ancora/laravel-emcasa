@@ -16,7 +16,7 @@
             </ul>
         </div>
     @endif
-    <form method="POST" action="{{route('produtos.store')}}">
+    <form method="POST" enctype="multipart/form-data" action="{{route('produtos.store')}}">
         @csrf
 		<div class="form-group mb-3">
 		    <label for="sku">Código (sku)</label>
@@ -40,7 +40,11 @@
 		    	<span class="input-group-text" id="basic-addon1">R$</span>
 			</div>
 		    <input type="number" step=".01" class="form-control" id="price" name="price" placeholder="0,00" required>
-	 	</div>
+         </div>
+         <div class="input-group mb-3">
+             <label for="image">Imagem</label>
+             <input type="file" class="form-control-file" id="image" name="image">
+         </div>
 	 	<button type="submit" class="btn btn-primary">Cadastrar Produto</button>
 	</form>
 @endsection

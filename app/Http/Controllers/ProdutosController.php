@@ -41,6 +41,11 @@ class ProdutosController extends Controller
         $produto->quantity = $request->input('quantity');
         $produto->price = $request->input('price');
 
+        /* TODO: upload de mais de uma imagem */
+        $imagem = $request->file('image');
+        $nomearquivo = md5($request->input('sku')) . '.' . $imagem->getClientOriginalExtension();
+        $request->file('image')->move(public_path('./img/produtos/'), $nomearquivo);
+
         if ($produto->save()) {
             return redirect('produtos/create')->with('success', 'Produto ' . $produto->title . ' cadastrado com sucesso!');
         }
@@ -66,7 +71,7 @@ class ProdutosController extends Controller
 
         if ($request->hasFile('image')) {
             $imagem = $request->file('image');
-            $nomearquivo = md5($id) . '.' . $imagem->getClientOriginalExtension();
+            $nomearquivo = md5($produto->sku) . '.' . $imagem->getClientOriginalExtension();
             $request->file('image')->move(public_path('./img/produtos/'), $nomearquivo);
         }
 

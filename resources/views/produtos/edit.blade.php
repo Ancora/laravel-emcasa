@@ -41,13 +41,22 @@
 	 	<div class="input-group mb-3">
 		    <div class="input-group-prepend">
 		    	<span class="input-group-text" id="basic-addon1">R$</span>
-			</div>
+            </div>
+            {{-- TODO: number_format do preço: como fazer? --}}
 		    <input type="number" step=".01" class="form-control" id="price" name="price" value="{{$produto->price}}" placeholder="0,00" required>
-         </div>
-         <div class="input-group mb-3">
-             <label for="image">Foto</label>
-             <input type="file" class="form-control-file" id="image" name="image">
-         </div>
+        </div>
+        <div class="row">
+        @if (file_exists('./img/produtos/' . md5($produto->sku) . '.jpg'))
+        <div class="col-md-6">
+        <img src="{{url('img/produtos/' . md5($produto->sku) . '.jpg')}}" alt="Imagem Produto" class="img-fluid img-thumbnail">
+        </div>
+        @endif
+        <div class="col-md-6">
+            <div class="input-group mb-3">
+                <label for="image">Alterar Imagem</label>
+                <input type="file" class="form-control-file" id="image" name="image">
+            </div>
+        </div>
 	 	<button type="submit" class="btn btn-info">Alterar Produto</button>
 	</form>
 @endsection
