@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-@extends('layout.app')
+@extends('layouts.app')
 @section('title', $produto->title)
 @section('content')
     <h1>Produto: {{$produto->title}}</h1>

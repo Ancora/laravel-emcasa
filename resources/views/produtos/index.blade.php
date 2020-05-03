@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 @section('title', 'Lista de Produtos')
 @section('content')
     <h1 class="text-center">Produtos</h1>
@@ -7,7 +7,7 @@
         {{$message}}
     </div>
     @endif
-    <div class="row">
+    <div class="row no-gutters">
         <div class="col-md-3">
             <form method="POST" action="{{url('produtos/search')}}">
                 @csrf
@@ -21,26 +21,30 @@
             </form>
         </div>
     </div>
-    <div class="row">
+    <p>{{$produtos->links()}}</p>
+    <div class="row no-gutters">
         @foreach ($produtos as $produto)
-        <div class="card col-md-3">
+        <div class="card col-sm-3 border-primary text-primary text-center" style="margin: 0.008 !important;">
+            <div class="card-header">
+                <h6><a href="{{URL::to('produtos')}}/{{$produto->id}}">{{$produto->title}}</a></h6>
+            </div>
             @if (file_exists('./img/produtos/' . md5($produto->sku) . '.jpg'))
-            <img src="{{url('img/produtos/' . md5($produto->sku) . '.jpg')}}" alt="Imagem Produto" class="img-fluid img-thumbnail card-img-top">
+            <img src="{{url('img/produtos/' . md5($produto->sku) . '.jpg')}}" alt="Imagem Produto"
+                class="img-fluid img-thumbnail">
             @endif
-            <div class="card-body">
-                <h5 class="text-center card-title"><a href="{{URL::to('produtos')}}/{{$produto->id}}">{{$produto->title}}</a></h5>
-                <div class="mb-3 row">
-                    <form method="POST" action="{{action('ProdutosController@destroy', $produto->id)}}">
-                        @csrf
-                        <input type="hidden" name="_method" value="DELETE">
-                        <a href="{{URL::to('produtos/' . $produto->id . '/edit')}}" class="btn btn-info btn-sm">Editar</a>
-                        <button class="btn btn-danger btn-sm">Excluir</button>
-                    </form>
-                </div>
+            <p class="card-text">R$ {{number_format($produto->price, 2, ',' , '.')}}</p>
+            <p class="card-text">Estoque: {{$produto->quantity}}</p>
+            <div class="mb-3">
+                <form method="POST" action="{{action('ProdutosController@destroy', $produto->id)}}">
+                    @csrf
+                    <input type="hidden" name="_method" value="DELETE">
+                    <a href="{{URL::to('produtos/' . $produto->id . '/edit')}}" class="btn btn-primary btn-sm">Editar</a>
+                    <button class="btn btn-danger btn-sm">Excluir</button>
+                </form>
             </div>
         </div>
         @endforeach
     </div>
-    {{$produtos->links()}}
+    <p>{{$produtos->links()}}</p>
 @endsection
 
