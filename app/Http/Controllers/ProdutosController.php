@@ -85,4 +85,17 @@ class ProdutosController extends Controller
             return redirect('produtos/' . $id . '/edit')->with('success', 'Produto ' . $produto->title . ' alterado com sucesso!');
         }
     }
+
+    public function destroy($id)
+    {
+        $produto = Produtos::find($id);
+
+        if (file_exists('./img/produtos/' . md5($produto->sku) . '.jpg')) {
+            unlink('./img/produtos/' . md5($produto->sku) . '.jpg');
+        }
+
+        $prod = $produto->title;
+        $produto->delete();
+        return redirect()->back()->with('success', 'Produto ' . $prod . ' excluído com sucesso!');
+    }
 }

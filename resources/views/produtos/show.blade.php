@@ -5,11 +5,11 @@
     <h1>Produto: {{$produto->title}}</h1>
     <div class="row">
         @if (file_exists('./img/produtos/' . md5($produto->sku) . '.jpg'))
-        <div class="col-md-6">
+        <div class="col-md-4">
         <img src="{{url('img/produtos/' . md5($produto->sku) . '.jpg')}}" alt="Imagem Produto" class="img-fluid img-thumbnail">
         </div>
         @endif
-        <div class="col-md-6">
+        <div class="col-md-8">
             <ul>
                 <li><strong>Código: </strong>: {{$produto->sku}}</li>
                 <li><strong>Qtd: </strong>: {{$produto->quantity}}</li>

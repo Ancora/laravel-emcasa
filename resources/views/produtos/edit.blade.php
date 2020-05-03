@@ -3,9 +3,9 @@
 @section('content')
     <h1 class="mb-3">Editar Produto - {{$produto->title}}</h1>
     @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            {{$message}}
-        </div>
+    <div class="alert alert-success">
+        {{$message}}
+    </div>
     @endif
     @if (count($errors) > 0)
         <div class="alert alert-danger">
@@ -47,11 +47,11 @@
         </div>
         <div class="row">
         @if (file_exists('./img/produtos/' . md5($produto->sku) . '.jpg'))
-        <div class="col-md-6">
+        <div class="col-md-4">
         <img src="{{url('img/produtos/' . md5($produto->sku) . '.jpg')}}" alt="Imagem Produto" class="img-fluid img-thumbnail">
         </div>
         @endif
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="input-group mb-3">
                 <label for="image">Alterar Imagem</label>
                 <input type="file" class="form-control-file" id="image" name="image">
