@@ -9,8 +9,8 @@ class ProdutosController extends Controller
 {
     public function index()
     {
-        $produtos = Produtos::all();
-        return view('produtos.index', array('produtos' => $produtos));
+        $produtos = Produtos::paginate(8);
+        return view('produtos.index', array('produtos' => $produtos, 'pesquisar' => null));
     }
 
     public function show($id)
@@ -97,5 +97,14 @@ class ProdutosController extends Controller
         $prod = $produto->title;
         $produto->delete();
         return redirect()->back()->with('success', 'Produto ' . $prod . ' excluído com sucesso!');
+    }
+
+    public function search(Request $request)
+    {
+        $pesquisaInput = $request->input('search');
+        $produtos = Produtos::where('title', 'LIKE', '%' . $pesquisaInput . '%')
+            ->orwhere('description', 'LIKE', '%' . $pesquisaInput . '%')
+            ->paginate(8);
+        return view('produtos.index', array('produtos' => $produtos, 'pesquisar' => $pesquisaInput));
     }
 }

@@ -17,3 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('/produtos', 'ProdutosController');
+Route::post('/produtos/search', 'ProdutosController@search');
