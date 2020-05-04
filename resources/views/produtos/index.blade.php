@@ -34,6 +34,7 @@
             @endif
             <p class="card-text">R$ {{number_format($produto->price, 2, ',' , '.')}}</p>
             <p class="card-text">Estoque: {{$produto->quantity}}</p>
+            @if (Auth::check())
             <div class="mb-3">
                 <form method="POST" action="{{action('ProdutosController@destroy', $produto->id)}}">
                     @csrf
@@ -42,6 +43,7 @@
                     <button class="btn btn-danger btn-sm">Excluir</button>
                 </form>
             </div>
+            @endif
         </div>
         @endforeach
     </div>
