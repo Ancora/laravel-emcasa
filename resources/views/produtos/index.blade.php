@@ -15,7 +15,7 @@
                 <input type="text" class="form-control" id="search" name="search"
                     placeholder="Pesquisar Produto" value="{{$pesquisar}}">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary">Pesquisar</button>
+                        <button class="btn btn-primary">Pesquisar</button>
                     </div>
                 </div>
             </form>
