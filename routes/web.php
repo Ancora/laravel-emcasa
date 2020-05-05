@@ -20,7 +20,7 @@ Route::get('/', function () {
 Route::resource('/produtos', 'ProdutosController');
 Route::post('/produtos/search', 'ProdutosController@search');
 Route::get('/contato', 'ContatosController@index');
-Route::post('/contato/enviar', 'ContatosController@enviar');
+Route::post('/contatos/enviar', 'ContatosController@enviar');
 
 Auth::routes();
 
