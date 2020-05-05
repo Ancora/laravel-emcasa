@@ -19,6 +19,7 @@ Route::get('/', function () {
 });
 Route::resource('/produtos', 'ProdutosController');
 Route::post('/produtos/search', 'ProdutosController@search');
+Route::post('/produtos/order', 'ProdutosController@order');
 Route::get('/contato', 'ContatosController@index');
 Route::post('/contatos/enviar', 'ContatosController@enviar');
 

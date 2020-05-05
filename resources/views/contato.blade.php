@@ -18,18 +18,24 @@
     @endif
     <form method="POST" action="{{url('contatos/enviar')}}">
         @csrf
-        <div class="form-group mb-3">
-            <label for="name">Nome</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Nome ..." required>
+        <div class="row">
+            <div class="form-group mb-3 col-md-4">
+                <label for="name">Nome</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Nome ..." required>
+            </div>
+            <div class="form-group mb-3 col-md-4">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="E-mail ..." required>
+            </div>
         </div>
-        <div class="form-group mb-3">
-            <label for="email">E-mail</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="E-mail ..." required>
+
+        <div class="row">
+            <div class="form-group mb-3 col-md-6">
+                <label for="subject">Assunto</label>
+                <input type="text" class="form-control" id="subject" name="subject" placeholder="Assunto ..." required>
+            </div>
         </div>
-        <div class="form-group mb-3">
-		    <label for="subject">Assunto</label>
-		    <input type="text" class="form-control" id="subject" name="subject" placeholder="Assunto ..." required>
-        </div>
+
 	 	<div class="form-group mb-3">
 		    <label for="msg">Descrição</label>
 		   	<textarea class="form-control" id="msg" name="msg" rows="6" placeholder="Mensagem ..." required></textarea>

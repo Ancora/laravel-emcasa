@@ -11,12 +11,20 @@ class ProdutosController extends Controller
     public function index()
     {
         $produtos = Produtos::paginate(8);
-        return view('produtos.index', array('produtos' => $produtos, 'pesquisar' => null));
+        $maiscaro = Produtos::all()->max('price');
+        $maisbarato = Produtos::all()->min('price');
+        $media = Produtos::all()->avg('price');
+        $total = Produtos::all()->sum('price');
+        $qtd = Produtos::all()->count();
+        return view('produtos.index', array(
+            'produtos' => $produtos, 'pesquisar' => null, 'order' => null,
+            'maiscaro' => $maiscaro, 'maisbarato' => $maisbarato, 'media' => $media, 'total' => $total, 'qtd' => $qtd
+        ));
     }
 
     public function show($id)
     {
-        $produto = Produtos::find($id);
+        $produto = Produtos::with('mostrarComentarios')->find($id);
         return view('produtos.show', array('produto' => $produto));
     }
 
@@ -114,6 +122,34 @@ class ProdutosController extends Controller
         $produtos = Produtos::where('title', 'LIKE', '%' . $pesquisaInput . '%')
             ->orwhere('description', 'LIKE', '%' . $pesquisaInput . '%')
             ->paginate(8);
-        return view('produtos.index', array('produtos' => $produtos, 'pesquisar' => $pesquisaInput));
+        return view('produtos.index', array('produtos' => $produtos, 'pesquisar' => $pesquisaInput, 'order' => null));
+    }
+
+    public function order(Request $request)
+    {
+        $ordemInput = $request->input('order');
+        switch ($ordemInput) {
+            case '1':
+                $coluna = 'title';
+                $tipo = 'asc';
+                break;
+            case '2':
+                $coluna = 'title';
+                $tipo = 'desc';
+                break;
+            case '3':
+                $coluna = 'price';
+                $tipo = 'desc';
+                break;
+            case '4':
+                $coluna = 'price';
+                $tipo = 'asc';
+                break;
+            default:
+                break;
+        }
+
+        $produtos = Produtos::orderBy($coluna, $tipo)->paginate(8);
+        return view('produtos.index', array('produtos' => $produtos, 'pesquisar' => null, 'order' => $ordemInput));
     }
 }
